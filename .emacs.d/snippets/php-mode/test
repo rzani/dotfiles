@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: test
+# key: test
+# binding: direct-keybinding
+# --
+/** @test */
+public function $1()
+{
+    $0
+}

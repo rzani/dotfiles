@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: rzani <rodrigo.zhs@gmail.com>
+# name: this
+# key: this
+# binding: direct-keybinding
+# --
+$this->$0
