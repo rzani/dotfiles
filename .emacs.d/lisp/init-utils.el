@@ -61,6 +61,31 @@ You might insert multiple lines using TIMES."
     (move-end-of-line 1)
     (newline times)))
 
+
+;;----------------------------------------------------------------------------
+;; Charactes at end-of-line
+;;----------------------------------------------------------------------------
+(defun rzani/add-semicolon-end-of-line()
+  "Add semicolon at the end of the line and return to current position"
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (if (not (= (preceding-char) 59))
+	(insert ";"))
+    ))
+(global-set-key (kbd "C-M-;") 'rzani/add-semicolon-end-of-line)
+
+(defun rzani/add-comma-end-of-line()
+  "Add comma at the end of the line and return to current position"
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (if (not (= (preceding-char) 44))
+	(insert ","))
+    ))
+(global-set-key (kbd "C-M-,") 'rzani/add-comma-end-of-line)
+
+
 (provide 'init-utils)
 
 ;;; init-utils ends here
