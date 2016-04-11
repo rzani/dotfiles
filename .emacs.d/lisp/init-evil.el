@@ -10,6 +10,7 @@
 (require-package 'evil-indent-textobject)
 (require-package 'evil-surround)
 (require-package 'evil-mc)
+(require-package 'evil-nerd-commenter)
 
 (require 'evil)
 (require 'avy)
@@ -50,6 +51,14 @@
   "v"   'split-window-right
   "w"   'save-buffer
   "y"	'insert-register
+  "ci"  'evilnc-comment-or-uncomment-lines
+  "cl"  'evilnc-quick-comment-or-uncomment-to-the-line
+  "ll"  'evilnc-quick-comment-or-uncomment-to-the-line
+  "cc"  'evilnc-copy-and-comment-lines
+  "cp"  'evilnc-comment-or-uncomment-paragraphs
+  "cr"  'comment-or-uncomment-region
+  "cv"  'evilnc-toggle-invert-comment-line-by-line
+  "\\"  'evilnc-comment-operator ; if you prefer backslash key
   )
 
 (provide 'init-evil)
