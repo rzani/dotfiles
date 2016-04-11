@@ -42,7 +42,6 @@
 (evil-leader/set-leader ",")
 (setq evil-leader/in-all-states 1)
 (evil-leader/set-key
-  ","   'avy-goto-char-2
   "."   'switch-to-previous-buffer
   "h"   'split-window-below
   "o"   'delete-other-windows
@@ -51,7 +50,7 @@
   "v"   'split-window-right
   "w"   'save-buffer
   "y"	'insert-register
-)
+  )
 
 (provide 'init-evil)
 ;;; init-evil ends here
