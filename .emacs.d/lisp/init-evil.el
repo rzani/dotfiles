@@ -46,7 +46,7 @@
   "."   'switch-to-previous-buffer
   "h"   'split-window-below
   "o"   'delete-other-windows
-  "q"   'kill-buffer
+  "q"   'kill-this-buffer
   "r"	'copy-to-register
   "v"   'split-window-right
   "w"   'save-buffer
