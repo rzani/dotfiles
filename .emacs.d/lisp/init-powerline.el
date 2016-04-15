@@ -1,8 +1,6 @@
 ;;; package --- sumary
-;;; Code:
 ;;; Commentary:
-(require-package 'powerline)
-
+;;; Code:
 (defface my-pl-segment1-active
   '((t (:foreground "#000000" :background "#E1B61A")))
   "Powerline first segment active face.")
@@ -85,9 +83,16 @@
 (setq powerline-default-separator (if (display-graphic-p) 'slant
 				    nil))
 
-(air--powerline-default-theme)
+(use-package powerline
+  :ensure t
+  :config
+  (setq powerline-default-separator (if (display-graphic-p) 'slant
+                                      nil))
+  (air--powerline-default-theme))
 
-(require-package 'powerline-evil)
+
+(use-package powerline-evil
+  :ensure t)
 
 (provide 'init-powerline)
 ;;; init-powerline ends here

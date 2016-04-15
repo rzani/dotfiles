@@ -73,6 +73,7 @@ You might insert multiple lines using TIMES."
     (if (not (= (preceding-char) 59))
 	(insert ";"))
     ))
+(global-unset-key (kbd "C-M-;"))
 (global-set-key (kbd "C-M-;") 'rzani/add-semicolon-end-of-line)
 
 (defun rzani/add-comma-end-of-line()
@@ -85,6 +86,11 @@ You might insert multiple lines using TIMES."
     ))
 (global-set-key (kbd "C-M-,") 'rzani/add-comma-end-of-line)
 
+(defun switch-to-previous-buffer ()
+  "Switch to previously open buffer.
+Repeated invocations toggle between the two most recently open buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
 
 (provide 'init-utils)
 

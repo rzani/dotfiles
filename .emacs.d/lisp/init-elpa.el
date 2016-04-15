@@ -24,6 +24,11 @@
                                                 "http://melpa.org/packages/"
                                               "https://melpa.org/packages/")))
 
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("elpy" . "https://jorgenschaefer.github.io/packages/"))
+
+
 ;;------------------------------------------------------------------------------
 ; On-demand installation of packages
 ;;------------------------------------------------------------------------------
@@ -56,7 +61,8 @@ locate PACKAGE."
      nil)))
 
 ;; Fire up package.el
+(setq package-enable-at-startup nil)
 (package-initialize)
 
 (provide 'init-elpa)
-;;; init-elpa ends here
+;; init-elpa ends here
