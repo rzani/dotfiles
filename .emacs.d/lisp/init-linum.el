@@ -39,6 +39,5 @@
 ;;; Set up relative line numbering to mimic `:set number relativenumber`.
 (add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
 
-
 (provide 'init-linum)
 ;;; init-linum.el ends here

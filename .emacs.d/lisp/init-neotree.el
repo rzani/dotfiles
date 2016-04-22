@@ -12,6 +12,7 @@
 	    (define-key evil-normal-state-local-map (kbd "c") 'neotree-change-root)
 	    (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
 	    (define-key evil-normal-state-local-map (kbd "n") 'neotree-hidden-file-toggle)
+	    (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
 	    (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
 	    (define-key evil-normal-state-local-map (kbd "SPC") 'neotree-enter)
 	    (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
