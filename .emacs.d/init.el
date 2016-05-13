@@ -70,6 +70,9 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package rainbow-delimiters :ensure t)
+(rainbow-delimiters-mode t)
+
 (require 'init-flycheck)
 (require 'init-helm)
 (require 'init-multiple-cursors)
@@ -125,8 +128,16 @@
 (defvar show-paren-delay 0
   "Delay (in seconds) before matching paren is highlighted.")
 
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode))
+
+(use-package avy
+  :ensure t)
+
 ;; -----------------------------------------------------------------------------
-;; macos stuff
+;; Macos stuff
 ;; -----------------------------------------------------------------------------
 
 (when *is-a-mac*

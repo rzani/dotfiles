@@ -18,7 +18,6 @@
 (defun my-linum-relative-line-numbers (line-number)
   (let* ((offset (abs (- line-number my-linum-current-line-number)))
          (linum-display-value (if (= 0 offset)
-
 				  my-linum-current-line-number
                                 offset))
          (format-string (if (= my-linum-current-line-number line-number) my-linum-current-line-format-string my-linum-format-string))

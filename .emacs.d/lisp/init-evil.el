@@ -4,7 +4,6 @@
 ;;;
 
 ;;; Code:
-(require-package 'avy)
 (require-package 'evil)
 (require-package 'evil-leader)
 (require-package 'evil-indent-textobject)
@@ -43,6 +42,7 @@
 (evil-leader/set-leader ",")
 (evil-leader/set-key
   "."   'switch-to-previous-buffer
+  ","   'avy-goto-char-2
   "h"   'split-window-below
   "o"   'delete-other-windows
   "q"   'kill-this-buffer
