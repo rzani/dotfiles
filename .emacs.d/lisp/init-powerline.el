@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 (defface my-pl-segment1-active
-  '((t (:foreground "#000000" :background "#E1B61A")))
+  '((t (:foreground "#000000" :background "#E1B61B")))
   "Powerline first segment active face.")
 (defface my-pl-segment1-inactive
   '((t (:foreground "#CEBFF3" :background "#3A2E58")))

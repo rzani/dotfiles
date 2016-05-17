@@ -4,17 +4,15 @@
 ;;;
 
 ;;; Code:
-(require-package 'evil)
-(require-package 'evil-leader)
-(require-package 'evil-indent-textobject)
-(require-package 'evil-surround)
-(require-package 'evil-mc)
-(require-package 'evil-nerd-commenter)
 
-(require 'evil)
-(require 'avy)
-(require 'evil-indent-textobject)
-(require 'evil-surround)
+(use-package avy :ensure t)
+
+(use-package evil :ensure t)
+(use-package evil-leader :ensure t)
+(use-package evil-indent-textobject :ensure t)
+(use-package evil-surround :ensure t)
+(use-package evil-mc :ensure t)
+(use-package evil-nerd-commenter :ensure t)
 
 (global-evil-surround-mode)
 
@@ -43,6 +41,7 @@
 (evil-leader/set-key
   "."   'switch-to-previous-buffer
   ","   'avy-goto-char-2
+  "1"   'delete-other-windows
   "h"   'split-window-below
   "o"   'delete-other-windows
   "q"   'kill-this-buffer

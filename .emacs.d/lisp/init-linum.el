@@ -1,42 +1,22 @@
-;;; init-linum.el --- Stuff for line numbers.
+;;; init-linum.el --- Line number settings
 ;;; Commentary:
 ;;; Code:
-(defface linum-current
-  '((t (:inherit linum :weight bold)))
-  "The current line number.")
 
-(defun my-linum-get-format-string ()
-  (let* ((width (max 2 (1+ (length (number-to-string
-                             (count-lines (point-min) (point-max)))))))
-         (format (concat "%" (number-to-string width) "d "))
-         (current-line-format (concat "%-" (number-to-string width) "d ")))
-    (setq my-linum-format-string format)
-	(setq my-linum-current-line-format-string current-line-format)))
+;;;; Faces
 
-(defvar my-linum-current-line-number 0)
+(defcustom linum-relative-current-symbol ""
+  "The symbol you want to show on the current line, by default it is 0.
+   You can use any string like \"->\". If this variable is empty string,
+linum-releative will show the real line number at current line."
+  :type 'string
+  :group 'linum-relative)
 
-(defun my-linum-relative-line-numbers (line-number)
-  (let* ((offset (abs (- line-number my-linum-current-line-number)))
-         (linum-display-value (if (= 0 offset)
-				  my-linum-current-line-number
-                                offset))
-         (format-string (if (= my-linum-current-line-number line-number) my-linum-current-line-format-string my-linum-format-string))
-         (face (if (= my-linum-current-line-number line-number) 'linum-current 'linum)))
-    (propertize (format format-string linum-display-value) 'face face)))
+(use-package linum-relative :ensure t)
 
-(defadvice linum-update (around my-linum-update)
-  (let ((my-linum-current-line-number (line-number-at-pos)))
-    ad-do-it))
-(ad-activate 'linum-update)
+(linum-relative-mode t)
 
-;;; This is the actual line number format definition.
-(defvar linum-format 'my-linum-relative-line-numbers)
-
-;;; Basic settings.
-(setq linum-delay t)
-
-;;; Set up relative line numbering to mimic `:set number relativenumber`.
-(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
+(custom-set-faces
+ '(linum-relative-current-face ((t (:background "#3c3836" :foreground "#a89984" :weight bold)))))
 
 (provide 'init-linum)
 ;;; init-linum.el ends here

@@ -73,8 +73,6 @@ You might insert multiple lines using TIMES."
     (if (not (= (preceding-char) 59))
 	(insert ";"))
     ))
-(global-unset-key (kbd "C-M-;"))
-(global-set-key (kbd "C-M-;") 'rzani/add-semicolon-end-of-line)
 
 (defun rzani/add-comma-end-of-line()
   "Add comma at the end of the line and return to current position"
@@ -84,13 +82,14 @@ You might insert multiple lines using TIMES."
     (if (not (= (preceding-char) 44))
 	(insert ","))
     ))
-(global-set-key (kbd "C-M-,") 'rzani/add-comma-end-of-line)
 
 (defun switch-to-previous-buffer ()
   "Switch to previously open buffer.
 Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+(global-set-key (kbd "<f9>") 'calendar)
 
 (provide 'init-utils)
 

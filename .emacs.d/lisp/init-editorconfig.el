@@ -3,8 +3,8 @@
 ;;; Commentary:
 
 ;;; Code:
-(require-package 'editorconfig)
-(require 'editorconfig)
+(use-package editorconfig :ensure t)
+
 (editorconfig-mode 1)
 
 (provide 'init-editorconfig)
