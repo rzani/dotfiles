@@ -4,7 +4,15 @@
 ;;;
 
 ;;; Code:
+
+(custom-set-faces '(mode-line ((t (:background "#073642" :foreground "#93a1a1" :weight bold)))))
+
+(custom-set-faces '(powerline-active1 ((t (:background "#fdf6e3" :foreground "#002b36" :weight bold)))))
+
+(custom-set-faces '(powerline-active2 ((t (:background "#fdf6e3" :foreground "#002b36" :weight bold)))))
+
 (set-face-attribute 'mode-line nil :box nil)
+
 ;; "arrow" "arrow-fade" "slant" "chamfer" "wave" "brace" "roundstub" "zigzag" "butt" "rounded" "contour" "curve"
 (setq powerline-default-separator 'contour)
 
@@ -43,6 +51,7 @@ ADDITIONAL-SEGMENTS are inserted on the right, between `global' and
   (spaceline-rzani-theme)
   (spaceline-helm-mode)
   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state))
+
 
 (setq display-time-24hr-format t)
 (display-time-mode t)

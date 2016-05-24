@@ -21,6 +21,7 @@
 (desktop-save-mode 1)				; save/restore opened files
 (global-hl-line-mode 1)				; turn on highlighting current line
 (setq auto-save-default nil)			; stop creating those #auto-save# files
+(defalias 'yes-or-no-p 'y-or-n-p)		; set alias to choose between y or n
 
 (defvar backup-dir "~/.emacs.d/backups/")
 (setq backup-directory-alist (list (cons "." backup-dir)))
