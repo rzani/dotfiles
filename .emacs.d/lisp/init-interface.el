@@ -44,14 +44,15 @@
 ;; ----------------------------------------------------------------------------
 ;; Match parens
 ;; ----------------------------------------------------------------------------
-(set-face-background 'show-paren-match (face-background 'default))
-(set-face-foreground 'show-paren-match "#def")  ; Change the foreground color
+(set-face-background 'show-paren-match "#fdf6e3")
+(set-face-foreground 'show-paren-match "#073642")  ; Change the foreground color
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold)    ; Add extra-bold to matched paren
 (defvar show-paren-delay 0
   "Delay (in seconds) before matching paren is highlighted.")
 
 ;; rainbow parens, brackets ...
 (use-package rainbow-delimiters :ensure t)
+(global-set-key (kbd "<f6>") 'rainbow-delimiters-mode)
 
 
 ;; -----------------------------------------------------------------------------

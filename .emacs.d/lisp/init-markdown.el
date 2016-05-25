@@ -6,6 +6,11 @@
 ;;; Code:
 (use-package markdown-mode
   :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "/usr/local/bin/markdown")
   :config
   (define-key markdown-mode-map (kbd "C-\\")  'markdown-insert-list-item)
   (define-key markdown-mode-map (kbd "C-c '") 'fence-edit-code-at-point)
@@ -15,8 +20,9 @@
   (define-key markdown-mode-map (kbd "C-c 4") 'markdown-insert-header-atx-4)
   (define-key markdown-mode-map (kbd "C-c 5") 'markdown-insert-header-atx-5)
   (define-key markdown-mode-map (kbd "C-c 6") 'markdown-insert-header-atx-6))
+
 (add-hook 'markdown-mode-hook (lambda ()
-                                (set-fill-column 80)
+				(set-fill-column 80)
                                 (turn-on-auto-fill)
                                 (flyspell-mode)))
 

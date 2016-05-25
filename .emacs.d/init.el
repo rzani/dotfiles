@@ -13,6 +13,10 @@
 
 (require 'init-package)
 
+(use-package mmm-mode
+  :ensure t
+  :defer t)
+
 (require 'init-interface)
 
 (require 'init-utils)
@@ -64,7 +68,17 @@
   ;; new line and indent
   (add-hook 'yaml-mode-hook
       '(lambda ()
-        (define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+	(define-key yaml-mode-map "\C-m" 'newline-and-indent))))
+
+(use-package multi-term
+  :ensure t
+  :config
+  (setq multi-term-program "/bin/zsh")
+  (add-hook 'term-mode-hook
+	    (lambda ()
+	      (setq term-buffer-maximum-size 10000))))
+
+
 
 
 (global-set-key (kbd "C-M-;") 'rzani/add-semicolon-end-of-line)

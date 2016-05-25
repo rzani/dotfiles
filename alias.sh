@@ -19,6 +19,10 @@ alias dpsa="docker ps -a"
 alias dimg="docker images"
 alias dexec="docker exec -it"
 
+# DOCKER MACHINE
+alias dm-ccook-legado='docker-machine start cybercook-legado && eval "$(docker-machine env cybercook-legado)"'
+alias dm-ccook='docker-machine start cybercook && eval "$(docker-machine env cybercook)"'
+#
 # FILES
 alias hosts="sudo vim /etc/hosts"
 alias zshconfig="vim ~/.zshrc"
@@ -45,6 +49,3 @@ alias baile1="ssh baile1 -t byobu"
 alias baile2="ssh baile2 -t byobu"
 alias baile3="ssh baile3 -t byobu"
 alias baile4="ssh baile4 -t byobu"
-
-
-
