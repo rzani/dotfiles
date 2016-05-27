@@ -7,19 +7,18 @@
 
 (custom-set-faces '(mode-line ((t (:background "#073642" :foreground "#93a1a1" :weight bold)))))
 
-(custom-set-faces '(powerline-active1 ((t (:background "#fdf6e3" :foreground "#002b36" :weight bold)))))
+(custom-set-faces '(powerline-active1 ((t (:background "#93a1a1" :foreground "#002b36" :weight bold)))))
 
-(custom-set-faces '(powerline-active2 ((t (:background "#fdf6e3" :foreground "#002b36" :weight bold)))))
+(custom-set-faces '(powerline-active2 ((t (:background "#93a1a1" :foreground "#002b36" :weight bold)))))
 
 (set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
 
 ;; "arrow" "arrow-fade" "slant" "chamfer" "wave" "brace" "roundstub" "zigzag" "butt" "rounded" "contour" "curve"
 (setq powerline-default-separator 'contour)
 
 (setq spaceline-workspace-numbers-unicode 't)
 (setq spaceline-window-numbers-unicode 't)
-
-(use-package persp-mode :ensure t)
 
 (use-package eyebrowse :ensure t)
 
@@ -36,8 +35,7 @@
 ADDITIONAL-SEGMENTS are inserted on the right, between `global' and
 `buffer-position'."
   (apply 'spaceline--theme
-         '((persp-name
-            workspace-number
+         '((workspace-number
             window-number)
            :fallback evil-state
            :separator "|"
