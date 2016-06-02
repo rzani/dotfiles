@@ -41,6 +41,7 @@
 (evil-leader/set-key
   "."   'switch-to-previous-buffer
   ","   'avy-goto-char-2
+  "gst" 'magit-status
   "1"   'delete-other-windows
   "h"   'split-window-below
   "o"   'delete-other-windows

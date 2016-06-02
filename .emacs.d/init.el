@@ -78,7 +78,8 @@
 	    (lambda ()
 	      (setq term-buffer-maximum-size 10000))))
 
-
+(use-package magit
+  :ensure t)
 
 
 (global-set-key (kbd "C-M-;") 'rzani/add-semicolon-end-of-line)
