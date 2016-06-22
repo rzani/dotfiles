@@ -43,8 +43,11 @@
   ","   'avy-goto-char-2
   "gst" 'magit-status
   "1"   'delete-other-windows
+  "bo"  'bookmark-jump
+  "ba"  'bookmark-set
+  "bd"  'bookmark-delete
   "h"   'split-window-below
-  "o"   'delete-other-windows
+  "o"   'helm-find-files
   "q"   'kill-this-buffer
   "r"	'copy-to-register
   "v"   'split-window-right

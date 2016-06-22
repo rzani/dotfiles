@@ -30,7 +30,7 @@
 (require 'init-move-text)
 
 ;; ;(require 'init-whitespace)
-;; (require 'init-editorconfig)
+(require 'init-editorconfig)
 
 (require 'init-linum)
 
@@ -81,6 +81,10 @@
 (use-package magit
   :ensure t)
 
+(use-package codebug
+  :ensure t
+  :config
+  (require 'codebug))
 
 (global-set-key (kbd "C-M-;") 'rzani/add-semicolon-end-of-line)
 (global-set-key (kbd "C-M-,") 'rzani/add-comma-end-of-line)
