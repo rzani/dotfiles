@@ -1,0 +1,11 @@
+elpa/
+.emacs.desktop
+.emacs.desktop.lock
+bookmarks
+games
+.bookmarks.el
+.session
+history
+projectile-bookmarks.eld
+ac-comphist.dat
+recentf
