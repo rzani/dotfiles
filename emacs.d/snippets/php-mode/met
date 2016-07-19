@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# contributor: rzani <rodrigo.zhs@gmail.com>
+# name: met 
+# key: met
+# --
+
+/**
+ *
+ */
+    ${1:$$(yas-choose-value '("public " "private " "protected "))}function $2($3)
+{
+    $0
+}

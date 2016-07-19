@@ -3,6 +3,12 @@
 (require-package 'smartparens)
 (require 'smartparens-config)
 
+
+(set-face-background 'show-paren-match (face-attribute 'default :foreground))
+(set-face-foreground 'show-paren-match (face-attribute 'default :background))
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
+
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
 ;;----------------------------------------------------------------------------
@@ -28,13 +34,14 @@
  truncate-lines nil
  truncate-partial-width-windows nil)
 
+;; No backups
 (defvar backup-dir "~/.emacs.d/backups/")
-
 (setq
  auto-save-default nil
  backup-directory-alist (list (cons "." backup-dir))
  make-backup-files nil)
 
+;; always ask for y or n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (global-auto-revert-mode)
@@ -72,7 +79,7 @@
 (after-load 'browse-kill-ring
   (define-key browse-kill-ring-mode-map (kbd "q") 'browse-kill-ring-quit)
   (define-key browse-kill-ring-mode-map (kbd "j") 'browse-kill-ring-forward)
-  (define-key browse-kill-ring-mode-map (kbd "k") 'browse-kill-ring-previous))
+  (define-key browse-kilnl-ring-mode-map (kbd "k") 'browse-kill-ring-previous))
 (after-load 'page-break-lines
   (push 'browse-kill-ring-mode page-break-lines-modes))
 

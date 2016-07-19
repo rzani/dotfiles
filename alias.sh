@@ -24,11 +24,6 @@ alias dm-ccook-legado='docker-machine start cybercook-legado && eval "$(docker-m
 alias dm-ccook='docker-machine start cybercook && eval "$(docker-machine env cybercook)"'
 alias dm-web='docker-machine start web && eval "$(docker-machine env web)"'
 
-# NODE
-alias node="docker run -it --rm --name nodejs -v "$PWD":/usr/src/app -w /usr/src/app node:slim node"
-alias npm="docker run -it --rm --name nodejs -v "$PWD":/usr/src/app -w /usr/src/app node:slim npm"
-alias bower="docker run -it --rm --name bower -v "$PWD":/srv marmelab/bower bash -c bower --allow-root --config.interactive=false"
-
 # FILES
 alias hosts="sudo vim /etc/hosts"
 alias zshconfig="vim ~/.zshrc"
