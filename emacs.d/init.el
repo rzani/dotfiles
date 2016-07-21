@@ -15,7 +15,7 @@
 
 ;; create constant to check OS
 (defconst *is-a-mac* (eq system-type 'darwin))
-(defconst *spell-check-support-enabled* t) ;; Enable with t if you prefer
+(defconst *spell-check-support-enabled* nil) ;; Enable with t if you prefer
 
 ;;----------------------------------------------------------------------------
 ;; Temporarily reduce garbage collection during startup
