@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: rzani <rodrigo.zhs@gmail.com>
-# name: foreach
-# key: foreach
-# binding: direct-keybinding
-# --
-foreach (${1:iterable} as $${2:key}) {
-    $0
-}

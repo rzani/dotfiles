@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: var_dump and die 
-# key: vdd
-# binding: direct-keybinding
-# --
-var_dump($1);
-die();$0
