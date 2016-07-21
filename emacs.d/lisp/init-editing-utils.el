@@ -7,6 +7,8 @@
 (set-face-foreground 'show-paren-match (face-attribute 'default :background))
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
+(global-hl-line-mode 1)
+
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
 ;;----------------------------------------------------------------------------
@@ -39,7 +41,7 @@
  backup-directory-alist (list (cons "." backup-dir))
  make-backup-files nil)
 
-;; always ask for y or n
+;; Always ask for y or n
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (global-auto-revert-mode)

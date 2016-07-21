@@ -77,9 +77,8 @@ You might insert multiple lines using TIMES."
   (interactive)
   (save-excursion
     (end-of-line)
-    (if (not (= (preceding-char) 59))
-	(insert ";"))
-    ))
+    (if (not (= (preceding-char) 59)) (progn (insert ";") (evil-normal-state)))))
+
 (global-set-key (kbd "C-M-;") 'rzani/add-semicolon-end-of-line)
 
 ;;----------------------------------------------------------------------------
@@ -90,9 +89,8 @@ You might insert multiple lines using TIMES."
   (interactive)
   (save-excursion
     (end-of-line)
-    (if (not (= (preceding-char) 44))
-	(insert ","))
-    ))
+    (if (not (= (preceding-char) 44)) (progn (insert ",") (evil-normal-state)))))
+
 (global-set-key (kbd "C-M-,") 'rzani/add-comma-end-of-line)
 
 ;;----------------------------------------------------------------------------
