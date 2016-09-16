@@ -71,6 +71,7 @@ Plug 'honza/vim-snippets'
 
 "" Color
 Plug 'chriskempson/base16-vim'
+Plug 'altercation/vim-colors-solarized'
 
 "" Custom bundles
 "" Go Lang Bundle
@@ -162,11 +163,10 @@ set relativenumber
 set wildmenu
 
 
-
 let no_buffers_menu=1
-if !exists('g:not_finish_vimplug')
-	colorscheme base16-solarized-light
-endif
+"if !exists('g:not_finish_vimplug')
+	"colorscheme base16-solarized-light
+"endif
 
 set mousemodel=popup
 set t_Co=256
@@ -179,13 +179,16 @@ endtry
 
 if has("gui_running")
 	if has("gui_mac") || has("gui_macvim")
-		"set guifont=Menlo:h12
+		colorscheme solarized
 		set guifont=Fira_Mono_for_Powerline:h12
 		set transparency=1
 	else
 		set guifont=Fira\ Mono\ for\ Powerline\ 11
 	endif
 else
+
+	colorscheme solarized
+	set background=dark
 
 	let g:CSApprox_loaded = 1
 

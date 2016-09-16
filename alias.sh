@@ -28,6 +28,9 @@ alias dm-web='docker-machine start web && eval "$(docker-machine env web)"'
 alias hosts="sudo vim /etc/hosts"
 alias zshconfig="vim ~/.zshrc"
 
+# TMUX
+alias t="tmux"
+
 ## WEB CONTAINER
 alias php7="docker exec -it web_php7_1"
 alias php5="docker exec -it web_php5_1"
@@ -51,3 +54,4 @@ alias baile1="ssh baile1 -t byobu"
 alias baile2="ssh baile2 -t byobu"
 alias baile3="ssh baile3 -t byobu"
 alias baile4="ssh baile4 -t byobu"
+
