@@ -188,7 +188,7 @@ if has("gui_running")
 else
 
 	colorscheme solarized
-	set background=dark
+	set background=light
 
 	let g:CSApprox_loaded = 1
 
