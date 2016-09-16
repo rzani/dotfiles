@@ -11,7 +11,7 @@ alias apu="sudo apt-get update"
 alias apug="sudo apt-get upgrade"
 
 # GIT
-alias gpu="git push --set-upstream origin $(git symbolic-ref -q HEAD | cut -d"/" -f 3)"
+alias gpu='git push --set-upstream origin $(git symbolic-ref -q HEAD | cut -d"/" -f 3)'
 
 # DOCKER
 alias dps="docker ps"
