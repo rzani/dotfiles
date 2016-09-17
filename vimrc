@@ -237,7 +237,8 @@ if exists("*fugitive#statusline")
 endif
 
 " vim-airline
-let g:airline_theme = 'powerlineish'
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'solarized'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -547,11 +548,6 @@ endif
 
 " Always show it
 set laststatus=2
-
-" Using powerline fonts
-let g:airline_powerline_fonts = 1
-
-let g:airline_theme = 'solarized'
 
 if !exists('g:airline_powerline_fonts')
 	let g:airline#extensions#tabline#left_sep = ' '
