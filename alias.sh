@@ -6,9 +6,9 @@
 #
 
 # APT
-alias api="sudo apt-get install"
-alias apu="sudo apt-get update"
-alias apug="sudo apt-get upgrade"
+alias api="sudo apt install"
+alias apu="sudo apt update"
+alias apug="sudo apt upgrade"
 
 # GIT
 alias gpu='git push --set-upstream origin $(git symbolic-ref -q HEAD | cut -d"/" -f 3)'
