@@ -165,7 +165,7 @@ set wildmenu
 
 let no_buffers_menu=1
 "if !exists('g:not_finish_vimplug')
-	"colorscheme base16-solarized-light
+"colorscheme base16-solarized-light
 "endif
 
 set mousemodel=popup
@@ -329,9 +329,9 @@ augroup END
 
 " Automatically source the Vimrc file on save
 augroup autosourcing
-    autocmd!
-    autocmd BufWritePost .vimrc source %
-    autocmd BufWritePost basic.vim source ~/.vimrc
+	autocmd!
+	autocmd BufWritePost .vimrc source %
+	autocmd BufWritePost basic.vim source ~/.vimrc
 augroup END
 
 " Automatically strip whitespace on save
@@ -440,14 +440,14 @@ let g:tagbar_autofocus = 1
 " Disable visualbell
 set noerrorbells visualbell t_vb=
 if has('autocmd')
-autocmd GUIEnter * set visualbell t_vb=
+	autocmd GUIEnter * set visualbell t_vb=
 endif
 
 "" Copy/Paste/Cut
 set clipboard=unnamed  "share transfer area to copy/past/cut
 
 if has('unnamedplus')
-set clipboard=unnamed,unnamedplus
+	set clipboard=unnamed,unnamedplus
 endif
 
 noremap YY "+y<CR>
@@ -455,9 +455,9 @@ noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
 
 if has('macunix')
-" pbcopy for OSX copy/paste
-vmap <C-x> :!pbcopy<CR>
-vmap <C-c> :w !pbcopy<CR><CR>
+	" pbcopy for OSX copy/paste
+	vmap <C-x> :!pbcopy<CR>
+	vmap <C-c> :w !pbcopy<CR><CR>
 endif
 
 "" Buffer nav
@@ -495,44 +495,44 @@ nnoremap <Leader>o :.Gbrowse<CR>
 "" Custom configs
 
 let g:tagbar_type_go = {
-		\ 'ctagstype' : 'go',
-		\ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
-		\ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-		\ 'r:constructor', 'f:functions' ],
-		\ 'sro' : '.',
-		\ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-		\ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-		\ 'ctagsbin'  : 'gotags',
-		\ 'ctagsargs' : '-sort -silent'
-		\ }
+			\ 'ctagstype' : 'go',
+			\ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
+			\ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
+			\ 'r:constructor', 'f:functions' ],
+			\ 'sro' : '.',
+			\ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
+			\ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
+			\ 'ctagsbin'  : 'gotags',
+			\ 'ctagsargs' : '-sort -silent'
+			\ }
 
 " vim-go
 augroup FileType go
-au!
-au FileType go nmap gd <Plug>(go-def)
-au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
+	au!
+	au FileType go nmap gd <Plug>(go-def)
+	au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
 
-au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>db <Plug>(go-doc-browser)
+	au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
+	au FileType go nmap <Leader>db <Plug>(go-doc-browser)
 
-au FileType go nmap <Leader>gi <Plug>(go-info)
+	au FileType go nmap <Leader>gi <Plug>(go-info)
 
-au FileType go nmap <leader>gr <Plug>(go-run)
-au FileType go nmap <leader>rb <Plug>(go-build)
-au FileType go nmap <leader>gt <Plug>(go-test)
+	au FileType go nmap <leader>gr <Plug>(go-run)
+	au FileType go nmap <leader>rb <Plug>(go-build)
+	au FileType go nmap <leader>gt <Plug>(go-test)
 augroup END
 
 let g:javascript_enable_domhtmlcss = 1
 
 " vim-javascript
 augroup vimrc-javascript
-autocmd!
-autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
+	autocmd!
+	autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
 augroup END
 
 "" Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
-source ~/.vimrc.local
+	source ~/.vimrc.local
 endif
 
 "*****************************************************************************
@@ -541,7 +541,7 @@ endif
 
 " vim-airline
 if !exists('g:airline_symbols')
-let g:airline_symbols = {}
+	let g:airline_symbols = {}
 endif
 
 " Always show it
@@ -553,34 +553,34 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 
 if !exists('g:airline_powerline_fonts')
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep          = '▶'
-let g:airline_left_alt_sep      = '»'
-let g:airline_right_sep         = '◀'
-let g:airline_right_alt_sep     = '«'
-let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-let g:airline#extensions#readonly#symbol   = '⊘'
-let g:airline#extensions#linecolumn#prefix = '¶'
-let g:airline#extensions#paste#symbol      = 'ρ'
-let g:airline_symbols.linenr    = '␊'
-let g:airline_symbols.branch    = '⎇'
-let g:airline_symbols.paste     = 'ρ'
-let g:airline_symbols.paste     = 'Þ'
-let g:airline_symbols.paste     = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+	let g:airline#extensions#tabline#left_sep = ' '
+	let g:airline#extensions#tabline#left_alt_sep = '|'
+	let g:airline_left_sep          = '▶'
+	let g:airline_left_alt_sep      = '»'
+	let g:airline_right_sep         = '◀'
+	let g:airline_right_alt_sep     = '«'
+	let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+	let g:airline#extensions#readonly#symbol   = '⊘'
+	let g:airline#extensions#linecolumn#prefix = '¶'
+	let g:airline#extensions#paste#symbol      = 'ρ'
+	let g:airline_symbols.linenr    = '␊'
+	let g:airline_symbols.branch    = '⎇'
+	let g:airline_symbols.paste     = 'ρ'
+	let g:airline_symbols.paste     = 'Þ'
+	let g:airline_symbols.paste     = '∥'
+	let g:airline_symbols.whitespace = 'Ξ'
 else
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
+	let g:airline#extensions#tabline#left_sep = ''
+	let g:airline#extensions#tabline#left_alt_sep = ''
 
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+	" powerline symbols
+	let g:airline_left_sep = ''
+	let g:airline_left_alt_sep = ''
+	let g:airline_right_sep = ''
+	let g:airline_right_alt_sep = ''
+	let g:airline_symbols.branch = ''
+	let g:airline_symbols.readonly = ''
+	let g:airline_symbols.linenr = ''
 endif
 
 "Sort PHP use statements
