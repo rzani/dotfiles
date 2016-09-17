@@ -237,6 +237,7 @@ if exists("*fugitive#statusline")
 endif
 
 " vim-airline
+set laststatus=2   " Always show it
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 let g:airline#extensions#syntastic#enabled = 1
@@ -545,9 +546,6 @@ endif
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-
-" Always show it
-set laststatus=2
 
 if !exists('g:airline_powerline_fonts')
 	let g:airline#extensions#tabline#left_sep = ' '
