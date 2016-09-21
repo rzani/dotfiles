@@ -85,5 +85,3 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source ~/dotfiles/alias.sh
-
-alias dic='web_search duckduckgo \!d'

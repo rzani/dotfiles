@@ -5,6 +5,11 @@
 # @author rzani <rodrigo.zhs@gmail.com>
 #
 
+# VIM on MacOS
+if [ -f /usr/local/bin/vi ]; then
+	alias vim="/usr/local/bin/vi"
+fi
+
 # APT
 alias api="sudo apt install"
 alias apu="sudo apt update"

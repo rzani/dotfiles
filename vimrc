@@ -46,6 +46,7 @@ Plug 'majutsushi/tagbar'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ntpeters/vim-better-whitespace'
+Plug '2072/php-indenting-for-vim'
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -135,6 +136,7 @@ set smartcase
 set bomb
 set binary
 set ttyfast
+set lazyredraw
 
 "" Directories for swp files
 set nobackup
@@ -147,11 +149,19 @@ set shell=/bin/zsh
 " Display extra whitespace
 "set list listchars=tab:»·,trail:·,nbsp:·
 
+" Display cursor line
+"set cursorline
+
 " session management
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
+
+"" PHP
+"indent
+"let g:PHP_BracesAtCodeLevel = 0
+
 
 "*****************************************************************************
 "" Visual Settings
@@ -330,17 +340,13 @@ augroup vimrc-make-cmake
 	autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
-" Automatically source the Vimrc file on save
-augroup autosourcing
-	autocmd!
-	autocmd BufWritePost .vimrc source %
-	autocmd BufWritePost basic.vim source ~/.vimrc
-augroup END
-
 " Automatically strip whitespace on save
 augroup trailing-whitespace
 	autocmd BufWritePre * StripWhitespace
 augroup END
+
+" Auto complete PHP with C-x C-o
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
 set autoread
 
@@ -368,7 +374,7 @@ nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
 "" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
+"nnoremap <leader>. :lcd %:p:h<CR>
 
 "" Opens an edit command with the path of the currently edited file filled in
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -378,22 +384,9 @@ noremap <Leader>te :tabe <C-R>=expand("%:poh") . "/" <CR>
 
 "" easymotion.vim
 let g:EasyMotion_smartcase = 1
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
 map <Space> <Plug>(easymotion-prefix)
 
-map  <Space>f <Plug>(easymotion-overwin-f)
-nmap  <Space>f <Plug>(easymotion-overwin-f)
-
-map <Space>s <Plug>(easymotion-overwin-f2)
-nmap <Space>s <Plug>(easymotion-overwin-f2)
-
-map <Space>w <Plug>(easymotion-bd-w)
-nmap <Space>w <Plug>(easymotion-overwin-w)
-
-" JK motions: Line motions
-map <Space>j <Plug>(easymotion-j)
-map <Space>k <Plug>(easymotion-k)
+map <Space>s <Plug>(easymotion-s2)
 
 "" ctrlp.vim
 set wildmode=list:longest,list:full
@@ -419,10 +412,10 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 " snippets
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsEditSplit="vertical"
 
 " syntastic
 let g:syntastic_always_populate_loc_list=1
@@ -436,7 +429,7 @@ let g:syntastic_aggregate_errors = 1
 " Emmet
 imap <C-Z> <C-Y>,
 
-" Tagbar
+"" Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
@@ -448,10 +441,9 @@ endif
 
 "" Copy/Paste/Cut
 set clipboard=unnamed  "share transfer area to copy/past/cut
-
-if has('unnamedplus')
-	set clipboard=unnamed,unnamedplus
-endif
+"if has('unnamedplus')
+	"set clipboard=unnamed,unnamedplus
+"endif
 
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
@@ -495,8 +487,13 @@ vnoremap K :m '<-2<CR>gv=gv
 "" Open current line on GitHub
 nnoremap <Leader>o :.Gbrowse<CR>
 
-"" Custom configs
+"" Profiling
+nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
+nnoremap <silent> <leader>DP :exe ":profile pause"<cr>
+nnoremap <silent> <leader>DC :exe ":profile continue"<cr>
+nnoremap <silent> <leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
 
+"" Custom configs
 let g:tagbar_type_go = {
 			\ 'ctagstype' : 'go',
 			\ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
@@ -547,6 +544,8 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 
+let g:airline_extensions = ['branch', 'tabline']
+
 if !exists('g:airline_powerline_fonts')
 	let g:airline#extensions#tabline#left_sep = ' '
 	let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -568,7 +567,7 @@ else
 	let g:airline#extensions#tabline#left_sep = ''
 	let g:airline#extensions#tabline#left_alt_sep = ''
 
-	" powerline symbols
+	"powerline symbols
 	let g:airline_left_sep = ''
 	let g:airline_left_alt_sep = ''
 	let g:airline_right_sep = ''
@@ -583,17 +582,22 @@ endif
 vmap <Leader>su ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<cr>" Sort use statements
 
 " Editing Utils
-imap <Leader>; <Esc><S-a>;
+imap <Leader>; <Esc><S-a>;<Esc>
 nmap <Leader>; <S-a>;<Esc>
-imap <Leader>, <Esc><S-a>,
+imap <Leader>, <Esc><S-a>,<Esc>
 nmap <Leader>, <S-a>,<Esc>
 
 inoremap <C-G> <Esc>
 vnoremap <C-G> <Esc>gV
 
-" Ctrl+s Save the file
-imap <C-S> <Esc>:w<cr>
-nmap <C-S> :w<cr>
-
 "Use enter to create new lines w/o entering insert mode
 nnoremap <CR> o<Esc>
+
+"Move one char left in insert mode
+inoremap <C-f> <Esc>la
+
+inoremap <C-k> ->
+inoremap <C-l> =>
+
+"autocmd FileType php :NoMatchParen
+"let loaded_matchparen = 1
