@@ -1,5 +1,19 @@
+"
+" Content index
+"
+" 	1. Vim-PLug core
+"   2. Plug install packages
+" 	3. Basic Setup
+" 	4. Visual Settings
+"   5. Abbreviations
+"   6. Functions
+"   7. Autocmd Rules
+"   8. Plugins Settings
+"   9. Mappings
+"
+
 "*****************************************************************************
-"" Vim-PLug core
+"" 1. Vim-PLug core
 "*****************************************************************************
 if has('vim_starting')
 	set nocompatible               " Be iMproved
@@ -7,7 +21,7 @@ endif
 
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-let g:vim_bootstrap_langs = "javascript,php,html,go"
+let g:vim_bootstrap_langs = "javascript,php,html"
 let g:vim_bootstrap_editor = "vim"				" nvim or vim
 
 if !filereadable(vimplug_exists)
@@ -17,16 +31,17 @@ if !filereadable(vimplug_exists)
 	let g:not_finish_vimplug = "yes"
 
 	" Run shell script if exist on custom select language
-
 	autocmd VimEnter * PlugInstall
 endif
 
 " Required:
 call plug#begin(expand('~/.vim/plugged'))
 
+
 "*****************************************************************************
-"" Plug install packages
+"" 2. Plug install packages
 "*****************************************************************************
+
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
@@ -47,6 +62,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ntpeters/vim-better-whitespace'
 Plug '2072/php-indenting-for-vim'
+Plug 'tpope/vim-repeat'
+Plug 'mhinz/vim-startify'
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -71,7 +88,6 @@ endif
 Plug 'honza/vim-snippets'
 
 "" Color
-Plug 'chriskempson/base16-vim'
 Plug 'altercation/vim-colors-solarized'
 
 "" Custom bundles
@@ -88,7 +104,6 @@ Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 
-
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
 
@@ -104,8 +119,12 @@ filetype plugin indent on
 
 
 "*****************************************************************************
-"" Basic Setup
+"" 3. Basic Setup
 "*****************************************************************************"
+
+"" Map leader to ,
+let mapleader=','
+
 "" Encoding
 set encoding=utf-8
 set fileencoding=utf-8
@@ -120,11 +139,11 @@ set softtabstop=0
 set shiftwidth=4
 set expandtab
 
-"" Map leader to ,
-let mapleader=','
-
 "" Enable hidden buffers
 set hidden
+
+"" Disable showmode
+set noshowmode
 
 "" Searching
 set hlsearch
@@ -146,46 +165,49 @@ set fileformats=unix,dos,mac
 set showcmd
 set shell=/bin/zsh
 
-" Display extra whitespace
-"set list listchars=tab:»·,trail:·,nbsp:·
-
-" Display cursor line
-"set cursorline
-
 " session management
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
-"" PHP
-"indent
-"let g:PHP_BracesAtCodeLevel = 0
+" Disable visualbell
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+	autocmd GUIEnter * set visualbell t_vb=
+endif
+
+"" Copy/Paste/Cut
+set clipboard=unnamed  "share transfer area to copy/past/cut
+"if has('unnamedplus')
+	"set clipboard=unnamed,unnamedplus
+"endif
 
 
 "*****************************************************************************
-"" Visual Settings
+"" 4. Visual Settings
 "*****************************************************************************
+
 syntax on
 set ruler
-set number
-set relativenumber
+"set number
+"set relativenumber
 set wildmenu
-
+set wildmode=longest:full,full
 
 let no_buffers_menu=1
-"if !exists('g:not_finish_vimplug')
-"colorscheme base16-solarized-light
-"endif
 
 set mousemodel=popup
 set t_Co=256
 set guioptions=egmrti
 
-try
-	set gfn=Monospace\ 10
-catch
-endtry
+"set colorcolumn=80
+
+" Display extra whitespace
+"set list listchars=tab:»·,trail:·,nbsp:·
+
+" Display cursor line
+"set cursorline
 
 if has("gui_running")
 	if has("gui_mac") || has("gui_macvim")
@@ -196,8 +218,10 @@ if has("gui_running")
 		set guifont=Fira\ Mono\ for\ Powerline\ 11
 	endif
 else
+	if !exists('g:not_finish_vimplug')
+		colorscheme solarized
+	endif
 
-	colorscheme solarized
 	set background=light
 
 	let g:CSApprox_loaded = 1
@@ -215,7 +239,6 @@ else
 			set term=xterm-256color
 		endif
 	endif
-
 endif
 
 if &term =~ '256color'
@@ -239,9 +262,6 @@ set titlestring=%F
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
-highlight ColorColumn ctermbg=magenta ctermfg=white guibg=red guifg=white
-call matchadd('ColorColumn', '\%81v', 100)
-
 if exists("*fugitive#statusline")
 	set statusline+=%{fugitive#statusline()}
 endif
@@ -257,10 +277,12 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 
+
 "*****************************************************************************
-"" Abbreviations
+"" 5. Abbreviations
 "*****************************************************************************
 "" no one is really happy until you have this shortcuts
+
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -302,8 +324,9 @@ else
 endif
 
 "*****************************************************************************
-"" Functions
+"" 6. Functions
 "*****************************************************************************
+"
 if !exists('*s:setupWrapping')
 	function s:setupWrapping()
 		set wrap
@@ -313,8 +336,9 @@ if !exists('*s:setupWrapping')
 endif
 
 "*****************************************************************************
-"" Autocmd Rules
+"" 7. Autocmd Rules
 "*****************************************************************************
+
 "" The PC is fast enough, do syntax highlight syncing from start
 augroup vimrc-sync-fromstart
 	autocmd!
@@ -348,11 +372,101 @@ augroup END
 " Auto complete PHP with C-x C-o
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
+" vim-javascript
+augroup vimrc-javascript
+	autocmd!
+	autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
+augroup END
+
 set autoread
 
 "*****************************************************************************
-"" Mappings
+"" 8. Plugins Settings
 "*****************************************************************************
+
+"" easymotion.vim
+let g:EasyMotion_smartcase = 1
+
+"" ctrlp.vim
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|storage)|(\.(swp|tox|ico|git|hg|svn))$'
+let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
+let g:ctrlp_use_caching = 1
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_open_new_file = 'r'
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+
+"" The Silver Searcher
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	let g:ctrlp_use_caching = 0
+endif
+
+"" snippets
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsEditSplit="vertical"
+
+"" syntastic
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_auto_loc_list=1
+let g:syntastic_aggregate_errors = 1
+
+"" Tagbar
+let g:tagbar_autofocus = 1
+
+"" vim-airline
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+
+let g:airline_extensions = ['branch', 'tabline']
+
+if !exists('g:airline_powerline_fonts')
+	let g:airline#extensions#tabline#left_sep = ' '
+	let g:airline#extensions#tabline#left_alt_sep = '|'
+	let g:airline_left_sep          = '▶'
+	let g:airline_left_alt_sep      = '»'
+	let g:airline_right_sep         = '◀'
+	let g:airline_right_alt_sep     = '«'
+	let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
+	let g:airline#extensions#readonly#symbol   = '⊘'
+	let g:airline#extensions#linecolumn#prefix = '¶'
+	let g:airline#extensions#paste#symbol      = 'ρ'
+	let g:airline_symbols.linenr    = '␊'
+	let g:airline_symbols.branch    = '⎇'
+	let g:airline_symbols.paste     = 'ρ'
+	let g:airline_symbols.paste     = 'Þ'
+	let g:airline_symbols.paste     = '∥'
+	let g:airline_symbols.whitespace = 'Ξ'
+else
+	let g:airline#extensions#tabline#left_sep = ''
+	let g:airline#extensions#tabline#left_alt_sep = ''
+
+	"powerline symbols
+	let g:airline_left_sep = ''
+	let g:airline_left_alt_sep = ''
+	let g:airline_right_sep = ''
+	let g:airline_right_alt_sep = ''
+	let g:airline_symbols.branch = ''
+	let g:airline_symbols.readonly = ''
+	let g:airline_symbols.linenr = ''
+endif
+
+let g:javascript_enable_domhtmlcss = 1
+
+"*****************************************************************************
+"" 9. Mappings
+"*****************************************************************************
+
 "" Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
@@ -374,7 +488,7 @@ nnoremap <leader>sd :DeleteSession<CR>
 nnoremap <leader>sc :CloseSession<CR>
 
 "" Set working directory
-"nnoremap <leader>. :lcd %:p:h<CR>
+nnoremap <leader>. :lcd %:p:h<CR>
 
 "" Opens an edit command with the path of the currently edited file filled in
 noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -383,67 +497,30 @@ noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 noremap <Leader>te :tabe <C-R>=expand("%:poh") . "/" <CR>
 
 "" easymotion.vim
-let g:EasyMotion_smartcase = 1
 map <Space> <Plug>(easymotion-prefix)
 
-map <Space>s <Plug>(easymotion-s2)
+map <Space>s <Plug>(easymotion-overwin-f2)
 
-"" ctrlp.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|storage)|(\.(swp|tox|ico|git|hg|svn))$'
-let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
-let g:ctrlp_use_caching = 1
+map <Space><Space> <Plug>(easymotion-sn)
+omap <Space><Space> <Plug>(easymotion-tn)
 
-" The Silver Searcher
-if executable('ag')
-	set grepprg=ag\ --nogroup\ --nocolor
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:ctrlp_use_caching = 0
-endif
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  N <Plug>(easymotion-prev)
+map  n <Plug>(easymotion-next)
 
+"" CtrlP
 cnoremap <C-E> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>r :CtrlPMRUFiles<cr>
 nnoremap <C-P> :CtrlP<cr>
 noremap <C-B> :CtrlPBuffer<CR>
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-
-" snippets
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-"let g:UltiSnipsEditSplit="vertical"
-
-" syntastic
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_auto_loc_list=1
-let g:syntastic_aggregate_errors = 1
 
 " Emmet
 imap <C-Z> <C-Y>,
 
 "" Tagbar
 nmap <silent> <F4> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-
-" Disable visualbell
-set noerrorbells visualbell t_vb=
-if has('autocmd')
-	autocmd GUIEnter * set visualbell t_vb=
-endif
-
-"" Copy/Paste/Cut
-set clipboard=unnamed  "share transfer area to copy/past/cut
-"if has('unnamedplus')
-	"set clipboard=unnamed,unnamedplus
-"endif
 
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
@@ -484,98 +561,11 @@ vmap > >gv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"" Open current line on GitHub
-nnoremap <Leader>o :.Gbrowse<CR>
-
 "" Profiling
 nnoremap <silent> <leader>DD :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
 nnoremap <silent> <leader>DP :exe ":profile pause"<cr>
 nnoremap <silent> <leader>DC :exe ":profile continue"<cr>
 nnoremap <silent> <leader>DQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
-
-"" Custom configs
-let g:tagbar_type_go = {
-			\ 'ctagstype' : 'go',
-			\ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
-			\ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-			\ 'r:constructor', 'f:functions' ],
-			\ 'sro' : '.',
-			\ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-			\ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-			\ 'ctagsbin'  : 'gotags',
-			\ 'ctagsargs' : '-sort -silent'
-			\ }
-
-" vim-go
-augroup FileType go
-	au!
-	au FileType go nmap gd <Plug>(go-def)
-	au FileType go nmap <Leader>dd <Plug>(go-def-vertical)
-
-	au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
-	au FileType go nmap <Leader>db <Plug>(go-doc-browser)
-
-	au FileType go nmap <Leader>gi <Plug>(go-info)
-
-	au FileType go nmap <leader>gr <Plug>(go-run)
-	au FileType go nmap <leader>rb <Plug>(go-build)
-	au FileType go nmap <leader>gt <Plug>(go-test)
-augroup END
-
-let g:javascript_enable_domhtmlcss = 1
-
-" vim-javascript
-augroup vimrc-javascript
-	autocmd!
-	autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4 smartindent
-augroup END
-
-"" Include user's local vim config
-if filereadable(expand("~/.vimrc.local"))
-	source ~/.vimrc.local
-endif
-
-"*****************************************************************************
-"" Convenience variables
-"*****************************************************************************
-
-" vim-airline
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
-endif
-
-let g:airline_extensions = ['branch', 'tabline']
-
-if !exists('g:airline_powerline_fonts')
-	let g:airline#extensions#tabline#left_sep = ' '
-	let g:airline#extensions#tabline#left_alt_sep = '|'
-	let g:airline_left_sep          = '▶'
-	let g:airline_left_alt_sep      = '»'
-	let g:airline_right_sep         = '◀'
-	let g:airline_right_alt_sep     = '«'
-	let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-	let g:airline#extensions#readonly#symbol   = '⊘'
-	let g:airline#extensions#linecolumn#prefix = '¶'
-	let g:airline#extensions#paste#symbol      = 'ρ'
-	let g:airline_symbols.linenr    = '␊'
-	let g:airline_symbols.branch    = '⎇'
-	let g:airline_symbols.paste     = 'ρ'
-	let g:airline_symbols.paste     = 'Þ'
-	let g:airline_symbols.paste     = '∥'
-	let g:airline_symbols.whitespace = 'Ξ'
-else
-	let g:airline#extensions#tabline#left_sep = ''
-	let g:airline#extensions#tabline#left_alt_sep = ''
-
-	"powerline symbols
-	let g:airline_left_sep = ''
-	let g:airline_left_alt_sep = ''
-	let g:airline_right_sep = ''
-	let g:airline_right_alt_sep = ''
-	let g:airline_symbols.branch = ''
-	let g:airline_symbols.readonly = ''
-	let g:airline_symbols.linenr = ''
-endif
 
 "Sort PHP use statements
 "http://stackoverflow.com/questions/11531073/how-do-you-sort-a-range-of-lines-by-length
@@ -587,17 +577,19 @@ nmap <Leader>; <S-a>;<Esc>
 imap <Leader>, <Esc><S-a>,<Esc>
 nmap <Leader>, <S-a>,<Esc>
 
+" Alternative to <Esc>
 inoremap <C-G> <Esc>
 vnoremap <C-G> <Esc>gV
-
-"Use enter to create new lines w/o entering insert mode
-nnoremap <CR> o<Esc>
+inoremap jj <Esc>
 
 "Move one char left in insert mode
 inoremap <C-f> <Esc>la
 
+" Adds -> and => in insert mode
 inoremap <C-k> ->
 inoremap <C-l> =>
 
-"autocmd FileType php :NoMatchParen
-"let loaded_matchparen = 1
+"" Include user's local vim config
+if filereadable(expand("~/.vimrc.local"))
+	source ~/.vimrc.local
+endif
