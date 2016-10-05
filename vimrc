@@ -64,6 +64,7 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug '2072/php-indenting-for-vim'
 Plug 'tpope/vim-repeat'
 Plug 'mhinz/vim-startify'
+Plug 'godlygeek/tabular'
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -302,7 +303,7 @@ let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar.*
 nnoremap <silent> <S-F8> :NERDTreeFind<CR>
 noremap <F8> :NERDTreeToggle<CR>
 
@@ -310,7 +311,7 @@ noremap <F8> :NERDTreeToggle<CR>
 nnoremap <silent> <leader>f :Rgrep<CR>
 let Grep_Default_Options = '-IR'
 let Grep_Skip_Files = '*.log *.db'
-let Grep_Skip_Dirs = '.git node_modules'
+let Grep_Skip_Dirs = '.git node_modules vendor storage'
 
 " vimshell.vim
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
@@ -387,23 +388,24 @@ set autoread
 "" easymotion.vim
 let g:EasyMotion_smartcase = 1
 
-"" ctrlp.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|storage)|(\.(swp|tox|ico|git|hg|svn))$'
-let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
-let g:ctrlp_use_caching = 1
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-
 "" The Silver Searcher
 if executable('ag')
 	set grepprg=ag\ --nogroup\ --nocolor
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 	let g:ctrlp_use_caching = 0
 endif
+
+"" ctrlp.vim
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__,node_modules
+let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|storage|vendor)|(\.(swp|tox|ico|git|hg|svn))$'
+let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
+let g:ctrlp_use_caching = 1
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_open_new_file = 'r'
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+let g:ctrlp_show_hidden = 1
 
 "" snippets
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -504,12 +506,6 @@ map <Space>s <Plug>(easymotion-overwin-f2)
 map <Space><Space> <Plug>(easymotion-sn)
 omap <Space><Space> <Plug>(easymotion-tn)
 
-" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
-" Without these mappings, `n` & `N` works fine. (These mappings just provide
-" different highlight method and have some other features )
-map  N <Plug>(easymotion-prev)
-map  n <Plug>(easymotion-next)
-
 "" CtrlP
 cnoremap <C-E> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>r :CtrlPMRUFiles<cr>
@@ -588,6 +584,9 @@ inoremap <C-f> <Esc>la
 " Adds -> and => in insert mode
 inoremap <C-k> ->
 inoremap <C-l> =>
+
+"Tabularize
+vnoremap <Tab> :Tabularize /
 
 "" Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
