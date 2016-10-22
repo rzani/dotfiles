@@ -27,7 +27,7 @@ alias dexec="docker exec -it"
 # DOCKER MACHINE
 alias dm-ccook-legado='docker-machine start cybercook-legado && eval "$(docker-machine env cybercook-legado)"'
 alias dm-ccook='docker-machine start cybercook && eval "$(docker-machine env cybercook)"'
-alias dm-web='docker-machine start web && eval "$(docker-machine env web)"'
+alias dm-web='docker-machine start web && eval "$(docker-machine env web)" && cd ~/docker/web/ && docker-compose start'
 
 # FILES
 alias hosts="sudo vim /etc/hosts"
@@ -35,6 +35,9 @@ alias zshconfig="vim ~/.zshrc"
 
 # TMUX
 alias t="tmux"
+alias ta="tmux a"
+alias tls="tmux ls"
+alias tn="tmux new -s "
 
 ## WEB CONTAINER
 alias php7="docker exec -it web_php7_1"
