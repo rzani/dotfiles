@@ -65,6 +65,7 @@ Plug '2072/php-indenting-for-vim'
 Plug 'tpope/vim-repeat'
 Plug 'mhinz/vim-startify'
 Plug 'godlygeek/tabular'
+Plug 'Shougo/neocomplete.vim'
 
 let g:make = 'gmake'
 if system('uname -o') =~ '^GNU/'
@@ -191,8 +192,8 @@ set clipboard=unnamed  "share transfer area to copy/past/cut
 
 syntax on
 set ruler
-"set number
-"set relativenumber
+set number
+set relativenumber
 set wildmenu
 set wildmode=longest:full,full
 
@@ -465,6 +466,19 @@ endif
 
 let g:javascript_enable_domhtmlcss = 1
 
+"" Neocomplete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_select = 1
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
 "*****************************************************************************
 "" 9. Mappings
 "*****************************************************************************
@@ -510,7 +524,8 @@ omap <Space><Space> <Plug>(easymotion-tn)
 cnoremap <C-E> <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <Leader>r :CtrlPMRUFiles<cr>
 nnoremap <C-P> :CtrlP<cr>
-noremap <C-B> :CtrlPBuffer<CR>
+"noremap <C-B> :CtrlPBuffer<CR>
+noremap <Tab> :CtrlPBuffer<CR>
 
 " Emmet
 imap <C-Z> <C-Y>,
@@ -535,7 +550,7 @@ noremap <leader>x :bn<CR>
 noremap <leader>w :bn<CR>
 
 "" Close buffer
-map <Leader>c :NERDTreeClose<cr>:bd<cr>gT
+nmap <leader>c :bp <BAR> bd #<CR>
 
 " Close all the buffers
 map <Leader>ba :bufdo bd<cr>
@@ -587,6 +602,9 @@ inoremap <C-l> =>
 
 "Tabularize
 vnoremap <Tab> :Tabularize /
+
+"Open new empty buffer
+nmap <leader>t :enew<CR>
 
 "" Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
