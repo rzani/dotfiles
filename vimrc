@@ -1,10 +1,10 @@
 "
 " Content index
 "
-" 	1. Vim-PLug core
+"   1. Vim-PLug core
 "   2. Plug install packages
-" 	3. Basic Setup
-" 	4. Visual Settings
+"   3. Basic Setup
+"   4. Visual Settings
 "   5. Abbreviations
 "   6. Functions
 "   7. Autocmd Rules
@@ -182,7 +182,7 @@ endif
 "" Copy/Paste/Cut
 set clipboard=unnamed  "share transfer area to copy/past/cut
 "if has('unnamedplus')
-	"set clipboard=unnamed,unnamedplus
+"set clipboard=unnamed,unnamedplus
 "endif
 
 
