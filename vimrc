@@ -321,7 +321,8 @@ autocmd FileType blade imap <Tab> <C-y>,
 " Make it easy to edit the Vimrc file
 nmap <Leader>ev :e $MYVIMRC<cr>
 
-noremap <Leader>e :e
+"" Open file explorer
+map <Leader>e :e<Space><C-d>
 
 "" neosnippet
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
