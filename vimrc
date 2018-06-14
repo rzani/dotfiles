@@ -44,21 +44,19 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/grep.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'editorconfig/editorconfig-vim' 
 Plug 'arnaud-lb/vim-php-namespace'
-Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mattn/emmet-vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'justinmk/vim-dirvish'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --clang-completer --js-completer' }
-
 
 if has('nvim')
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -192,7 +190,7 @@ let g:deoplete#enable_smart_case = 1
 " vim-airline
 set laststatus=2   " Always show it
 let g:airline_powerline_fonts = 1
-"let g:airline_theme = 'solarized'
+let g:airline_theme = 'angr'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -200,17 +198,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 
-"" NERDTree configuration
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
+"
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar.*
-nnoremap <silent> <Leader>t :NERDTreeFind<CR>
-noremap <F8> :NERDTreeToggle<CR>
 
 "" grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -218,12 +207,13 @@ let Grep_Default_Options = '-IR'
 let Grep_Skip_Files = '*.log *.db'
 let Grep_Skip_Dirs = '.git node_modules vendor storage'
 
-
 "" neosnippet
 let g:neosnippet#disable_runtime_snippets = { '_' : 1, }
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/snippets'
 
+"" CtrlP - Ignore files
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 " 6. Functions
 "___________________________________________________
