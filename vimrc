@@ -42,6 +42,7 @@ call plug#begin(expand('~/.vim/plugged'))
 Plug 'easymotion/vim-easymotion'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -55,6 +56,8 @@ Plug 'mattn/emmet-vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'justinmk/vim-dirvish'
+Plug 'vim-syntastic/syntastic'
+Plug 'majutsushi/tagbar'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
@@ -79,14 +82,21 @@ call plug#end()
 ""Leader key
 let mapleader=','
 
+"" Enabling mouse
+set mouse=a
+
 set autowrite
 
 ""Enconding
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
+
 set bomb
 set binary
+
+" A buffer becomes hidden when it is abandoned
+set hid
 
 "" Disable showmode
 set noshowmode 
@@ -135,6 +145,7 @@ set number
 set relativenumber
 set wildmenu
 set wildmode=longest:full,full
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar.*
 
 set background=light
 
@@ -187,7 +198,7 @@ let g:EasyMotion_smartcase=1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
-" vim-airline
+"" Airline
 set laststatus=2   " Always show it
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'angr'
@@ -198,8 +209,10 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
 
+let g:airline_right_sep='│'
+let g:airline_left_sep='│'
+
 "
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar.*
 
 "" grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -214,6 +227,18 @@ let g:neosnippet#snippets_directory='~/.vim/snippets'
 
 "" CtrlP - Ignore files
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+"" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_aggregate_errors = 1                    " display all errors from all checkers together
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 
 " 6. Functions
 "___________________________________________________
@@ -306,6 +331,7 @@ autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 "" Emmet
 autocmd FileType blade imap <Tab> <C-y>,
+autocmd FileType vue imap <Tab> <C-y>,
 
 "" Editing files
 " Make it easy to edit the Vimrc file
@@ -321,6 +347,12 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" Indent the whole buffer
+map <Leader>i mzgg=G`z
+
+" open Tagbar
+map <F8> :TagbarOpenAutoClose<CR>
 
 
 " 8. Autocmd Rules
