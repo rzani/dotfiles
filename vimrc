@@ -55,7 +55,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mattn/emmet-vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'justinmk/vim-dirvish'
 Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
 
@@ -208,11 +207,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
-
 let g:airline_right_sep='│'
 let g:airline_left_sep='│'
-
-"
 
 "" grep.vim
 nnoremap <silent> <leader>f :Rgrep<CR>
@@ -239,6 +235,13 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+"" netrw rules!
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3 " use `i`  to change this value
+let g:netrw_browse_split = 4 " open file in previous window
+let g:netrw_winsize = 25
+let g:netrw_altv = 1
+
 
 " 6. Functions
 "___________________________________________________
@@ -249,13 +252,12 @@ function! IPhpInsertUse()
 endfunction
 
 
-
 " 7. Mappings
 "___________________________________________________
 
 ""General
 
-" Make it easy save files
+"" Make it easy save files
 nmap <Leader>w :w!<cr>
 inoremap jj <Esc>
 inoremap jk <Esc>
@@ -265,17 +267,20 @@ vnoremap <C-g> <Esc>
 inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 
+"" netrw
+map - :Sex<CR>
+
 ""Auto Complete
 inoremap <C-Space> <C-x><C-o>
 
-" Tab and Shift + Tab Circular buffer navigation
+"" Tab and Shift + Tab Circular buffer navigation
 nnoremap <tab>   :bn<CR>
 nnoremap <S-tab> :bp<CR>
 
 "" Close buffer
 nmap <leader>q :bp <BAR> bd #<CR>
 
-" Close all the buffers
+"" Close all the buffers
 map <Leader>ba :bufdo bd<cr>
 
 "" Clean search (highlight)
