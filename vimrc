@@ -237,6 +237,8 @@ let g:syntastic_check_on_wq = 0
 
 "" netrw rules!
 "
+"  http://vimcasts.org/episodes/the-file-explorer/
+"
 " Bindings
 " 	- = open netrw and after opened go to up dir
 " 	% = new file
@@ -255,8 +257,8 @@ let g:netrw_altv = 1
 "___________________________________________________
 
 function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
+	call PhpInsertUse()
+	call feedkeys('a',  'n')
 endfunction
 
 
@@ -278,15 +280,53 @@ inoremap <C-b> <Left>
 "" netrw
 map - :Sex<CR>
 
+" Terminal Mode
+"
+" Open terminal
+" 	:terminal
+" 	sp | terminal
+"
+" Escape to normal mode
+" 	<C-\><C-n>
+"
+" Open file under the cursor
+" 	gf
+"
+if has('nvim')
+	tnoremap <C-[> <C-\><C-n>
+	" Terminal mode:
+	tnoremap <M-h> <c-\><c-n><c-w>h
+	tnoremap <M-j> <c-\><c-n><c-w>j
+	tnoremap <M-k> <c-\><c-n><c-w>k
+	tnoremap <M-l> <c-\><c-n><c-w>l
+	" Insert mode:
+	inoremap <M-h> <Esc><c-w>h
+	inoremap <M-j> <Esc><c-w>j
+	inoremap <M-k> <Esc><c-w>k
+	inoremap <M-l> <Esc><c-w>l
+	" Visual mode:
+	vnoremap <M-h> <Esc><c-w>h
+	vnoremap <M-j> <Esc><c-w>j
+	vnoremap <M-k> <Esc><c-w>k
+	vnoremap <M-l> <Esc><c-w>l
+	" Normal mode:
+	nnoremap <M-h> <c-w>h
+	nnoremap <M-j> <c-w>j
+	nnoremap <M-k> <c-w>k
+	nnoremap <M-l> <c-w>l
+endif
+
+
 ""Auto Complete
 inoremap <C-Space> <C-x><C-o>
 
 "" Tab and Shift + Tab Circular buffer navigation
 nnoremap <tab>   :bn<CR>
 nnoremap <S-tab> :bp<CR>
+nnoremap <Leader>d <C-^><CR>
 
 "" Close buffer
-nmap <leader>q :bp <BAR> bd #<CR>
+nmap <leader>q :bp <BAR> bd! #<CR>
 
 "" Close all the buffers
 map <Leader>ba :bufdo bd<cr>
@@ -368,6 +408,7 @@ map <Leader>i mzgg=G`z
 map <F8> :TagbarOpenAutoClose<CR>
 
 
+
 " 8. Autocmd Rules
 "___________________________________________________
 
@@ -385,25 +426,3 @@ augroup vimrc-remember-cursor-position
 	autocmd!
 	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
-
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
-
-
