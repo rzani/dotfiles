@@ -48,7 +48,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/grep.vim'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim' 
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -105,6 +105,9 @@ set backspace=indent,eol,start
 
 "" Enable hidden buffers
 set hidden
+
+"" Default open buffers below
+set splitbelow
 
 "" Searching
 set hlsearch
@@ -247,7 +250,7 @@ let g:syntastic_check_on_wq = 0
 "   	D = deleting files or directories
 "
 let g:netrw_banner = 0
-let g:netrw_liststyle = 2 " use `i`  to change this value
+let g:netrw_liststyle = 1 " use `i`  to change this value
 let g:netrw_browse_split = 4 " open file in previous window
 let g:netrw_winsize = 25
 let g:netrw_altv = 1
