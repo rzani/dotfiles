@@ -39,6 +39,7 @@ endif
 " Required before Plug call
 call plug#begin(expand('~/.vim/plugged'))
 
+Plug 'mhinz/vim-startify'
 Plug 'easymotion/vim-easymotion'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
@@ -57,6 +58,10 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
+
+"Sessions
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
@@ -200,6 +205,12 @@ let g:EasyMotion_smartcase=1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
+" session management
+let g:session_directory = "~/.vim/session"
+let g:session_autoload = "no"
+let g:session_autosave = "no"
+let g:session_command_aliases = 1
+
 "" Airline
 set laststatus=2   " Always show it
 let g:airline_powerline_fonts = 1
@@ -238,6 +249,7 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+
 "" netrw rules!
 "
 "  http://vimcasts.org/episodes/the-file-explorer/
@@ -254,6 +266,7 @@ let g:netrw_liststyle = 1 " use `i`  to change this value
 let g:netrw_browse_split = 4 " open file in previous window
 let g:netrw_winsize = 25
 let g:netrw_altv = 1
+
 
 
 " 6. Functions
@@ -326,7 +339,7 @@ inoremap <C-Space> <C-x><C-o>
 "" Tab and Shift + Tab Circular buffer navigation
 nnoremap <tab>   :bn<CR>
 nnoremap <S-tab> :bp<CR>
-nnoremap <Leader>d <C-^><CR>
+nnoremap <Leader>. <C-^><CR>
 
 "" Close buffer
 nmap <leader>q :bp <BAR> bd! #<CR>
@@ -338,7 +351,7 @@ map <Leader>ba :bufdo bd<cr>
 nnoremap <silent> <leader><space> :noh<cr>
 
 "" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
+nnoremap <leader>, :lcd %:p:h<CR>
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
@@ -375,6 +388,12 @@ nnoremap <Leader>r :CtrlPMRUFiles<cr>
 nnoremap <C-P> :CtrlP<cr>
 "noremap <C-B> :CtrlPBuffer<CR>
 noremap <Leader><Tab> :CtrlPBuffer<CR>
+
+" session management
+nnoremap <leader>so :OpenSession<Space>
+nnoremap <leader>ss :SaveSession<Space>
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
 
 "" Golang
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
@@ -414,7 +433,6 @@ map <F8> :TagbarOpenAutoClose<CR>
 
 " 8. Autocmd Rules
 "___________________________________________________
-
 
 " Automatically source the Vimrc file on save
 "
