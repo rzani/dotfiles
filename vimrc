@@ -59,10 +59,6 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'vim-syntastic/syntastic'
 Plug 'majutsushi/tagbar'
 
-"Sessions
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 if has('nvim')
@@ -205,12 +201,6 @@ let g:EasyMotion_smartcase=1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
-" session management
-let g:session_directory = "~/.vim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-
 "" Airline
 set laststatus=2   " Always show it
 let g:airline_powerline_fonts = 1
@@ -266,6 +256,15 @@ let g:netrw_liststyle = 1 " use `i`  to change this value
 let g:netrw_browse_split = 4 " open file in previous window
 let g:netrw_winsize = 25
 let g:netrw_altv = 1
+
+"" Startify
+let g:startify_lists = [
+			\ { 'type': 'sessions',  'header': [   'Sessions']       },
+			\ { 'type': 'files',     'header': [   'MRU']            },
+			\ { 'type': 'dir',       'header': [   'MRU '. getcwd()] },
+			\ { 'type': 'bookmarks', 'header': [   'Bookmarks']      },
+			\ { 'type': 'commands',  'header': [   'Commands']       },
+			\ ]
 
 
 
@@ -390,10 +389,10 @@ nnoremap <C-P> :CtrlP<cr>
 noremap <Leader><Tab> :CtrlPBuffer<CR>
 
 " session management
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
+nnoremap <leader>so :SLoad<Space>
+nnoremap <leader>ss :SSave<Space>
+nnoremap <leader>sd :SDelete<CR>
+nnoremap <leader>sc :SClose<CR>
 
 "" Golang
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
