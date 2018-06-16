@@ -236,8 +236,16 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 "" netrw rules!
+"
+" Bindings
+" 	- = open netrw and after opened go to up dir
+" 	% = new file
+"   	d = create new directory
+"   	R = rename file or directories
+"   	D = deleting files or directories
+"
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3 " use `i`  to change this value
+let g:netrw_liststyle = 2 " use `i`  to change this value
 let g:netrw_browse_split = 4 " open file in previous window
 let g:netrw_winsize = 25
 let g:netrw_altv = 1
