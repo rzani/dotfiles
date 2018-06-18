@@ -56,8 +56,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mattn/emmet-vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'majutsushi/tagbar'
+Plug 'terryma/vim-multiple-cursors'
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
@@ -205,12 +206,13 @@ let g:deoplete#enable_smart_case = 1
 set laststatus=2   " Always show it
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'angr'
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_skip_empty_sections = 1
+let g:airline#extensions#tabline#left_alt_sep = ' '
 let g:airline_right_sep='│'
 let g:airline_left_sep='│'
 
@@ -224,20 +226,23 @@ let Grep_Skip_Dirs = '.git node_modules vendor storage'
 let g:neosnippet#disable_runtime_snippets = { '_' : 1, }
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/snippets'
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 "" CtrlP - Ignore files
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
-"" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
 
-let g:syntastic_aggregate_errors = 1                    " display all errors from all checkers together
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 
 "" netrw rules!
@@ -406,6 +411,8 @@ autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 "" Emmet
 autocmd FileType blade imap <Tab> <C-y>,
 autocmd FileType vue imap <Tab> <C-y>,
+
+autocmd FileType neosnippet imap <Tab> <Tab>
 
 "" Editing files
 " Make it easy to edit the Vimrc file
