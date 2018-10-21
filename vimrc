@@ -9,7 +9,7 @@ if has('vim_starting')
 endif
 
 " install vim
-let vimplug_exists=expand('~/.vim/autoload/plug.vim') 
+let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 if !filereadable(vimplug_exists)
 	echo "Installing Vim-Plug..."
 	echo ""
@@ -20,7 +20,7 @@ if !filereadable(vimplug_exists)
 endif
 
 " install on neovim
-let nvimplug_exists=expand('~/.local/share/nvim/site/autoload/plug.vim') 
+let nvimplug_exists=expand('~/.local/share/nvim/site/autoload/plug.vim')
 if !filereadable(nvimplug_exists)
 	echo "Installing Vim-Plug..."
 	echo ""
@@ -50,17 +50,22 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/grep.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'editorconfig/editorconfig-vim' 
+" Plug 'editorconfig/editorconfig-vim'
+" Plug 'sgur/vim-editorconfig'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'w0rp/ale'
 Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
-
+Plug 'posva/vim-vue'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 if has('nvim')
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -100,10 +105,11 @@ set binary
 set hid
 
 "" Disable showmode
-set noshowmode 
+set noshowmode
 
 "" Fix backspace indent
-set backspace=indent,eol,start
+set bs=2
+" set backspace=indent,eol,start
 
 "" Enable hidden buffers
 set hidden
@@ -122,8 +128,11 @@ set ttyfast
 set lazyredraw
 
 "" Directories for swp files
+set backupcopy=yes "https://en.parceljs.org/hmr.html#safe-write
 set nobackup
 set noswapfile
+set undofile
+set undodir=/tmp
 
 set fileformats=unix,dos,mac
 set showcmd
@@ -144,7 +153,7 @@ set clipboard=unnamedplus "share transfer area to copy/past/cut
 "___________________________________________________
 
 syntax on
-set ruler 
+set ruler
 set number
 set relativenumber
 set wildmenu
@@ -153,7 +162,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar.*
 
 set background=light
 
-let no_buffers_menu=1 
+let no_buffers_menu=1
 
 set mousemodel=popup
 set t_Co=256
@@ -178,7 +187,7 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ 
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 if exists("*fugitive#statusline")
 	set statusline+=%{fugitive#statusline()}
 endif
@@ -194,13 +203,15 @@ set si
 " 5. Plugin Settings
 "___________________________________________________
 
-
 "" easymotion.vim
 let g:EasyMotion_smartcase=1
 
 "" deoplete.vim
+set completeopt+=noselect
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 "" Airline
 set laststatus=2   " Always show it
@@ -234,14 +245,14 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 "" The Silver Searcher
 if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+	" Use ag over grep
+	set grepprg=ag\ --nogroup\ --nocolor
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-  " " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+	" " ag is fast enough that CtrlP doesn't need to cache
+	let g:ctrlp_use_caching = 0
 endif
 
 
@@ -256,9 +267,8 @@ endif
 "   	R = rename file or directories
 "   	D = deleting files or directories
 "
-let g:netrw_banner = 0
 let g:netrw_liststyle = 1 " use `i`  to change this value
-let g:netrw_browse_split = 4 " open file in previous window
+let g:netrw_browse_split = 0 " open file in previous window
 let g:netrw_winsize = 25
 let g:netrw_altv = 1
 
@@ -298,7 +308,9 @@ inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 
 "" netrw
-map - :Sex<CR>
+map - :Explore<CR>
+
+nnoremap <C-j> i<CR><Esc>
 
 " Terminal Mode
 "
@@ -409,17 +421,15 @@ autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 "" Emmet
-autocmd FileType blade imap <Tab> <C-y>,
-autocmd FileType vue imap <Tab> <C-y>,
-
-autocmd FileType neosnippet imap <Tab> <Tab>
+autocmd FileType blade imap <C-j> <C-y>,
+autocmd FileType vue imap <C-j> <C-y>,
 
 "" Editing files
 " Make it easy to edit the Vimrc file
-nmap <Leader>ev :e $MYVIMRC<cr>
+nmap <Leader>vi :e $MYVIMRC<cr>
 
 "" Open file explorer
-map <Leader>e :e<Space><C-d>
+map <Leader>e :Explore<cr>
 
 "" neosnippet
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -434,6 +444,7 @@ map <Leader>i mzgg=G`z
 
 " open Tagbar
 map <F8> :TagbarOpenAutoClose<CR>
+map <F5> :e<CR>
 
 
 
@@ -444,8 +455,11 @@ map <F8> :TagbarOpenAutoClose<CR>
 "
 augroup autosourcing
 	autocmd!
-	autocmd BufWritePost .vimrc source %
-	autocmd BufWritePost init.vim source %
+	if has('nvim')
+		autocmd BufWritePost init.vim source %
+	else
+		autocmd BufWritePost .vimrc source %
+	endif
 augroup END
 
 "" Remember cursor position
