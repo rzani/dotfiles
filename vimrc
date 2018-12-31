@@ -5,6 +5,8 @@
 
 
 if has('vim_starting')
+
+
 	set nocompatible               " Be iMproved endif
 endif
 
@@ -50,15 +52,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/grep.vim'
 Plug 'jiangmiao/auto-pairs'
-" Plug 'editorconfig/editorconfig-vim'
-" Plug 'sgur/vim-editorconfig'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'arnaud-lb/vim-php-namespace'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'posva/vim-vue'
@@ -66,6 +66,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
 
 if has('nvim')
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -147,6 +149,16 @@ endif
 "" Copy/Paste/Cut
 set clipboard=unnamedplus "share transfer area to copy/past/cut
 
+filetype plugin indent on
+
+" show existing tab with 4 spaces width
+set tabstop=4
+
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+
+" On pressing tab, insert 4 spaces
+set expandtab
 
 
 "  4. Visual Setup
@@ -159,6 +171,8 @@ set relativenumber
 set wildmenu
 set wildmode=longest:full,full
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.tar.*
+
+set winwidth=110
 
 set background=light
 
@@ -219,9 +233,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'angr'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#left_alt_sep = ' '
 let g:airline_right_sep='│'
@@ -281,6 +295,8 @@ let g:startify_lists = [
 			\ { 'type': 'commands',  'header': [   'Commands']       },
 			\ ]
 
+"Ranger
+let g:ranger_map_keys = 0
 
 
 " 6. Functions
@@ -297,6 +313,9 @@ endfunction
 
 ""General
 
+noremap j gj
+noremap k gk
+
 "" Make it easy save files
 nmap <Leader>w :w!<cr>
 inoremap jj <Esc>
@@ -308,7 +327,7 @@ inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 
 "" netrw
-map - :Explore<CR>
+map - :Ranger<CR>
 
 nnoremap <C-j> i<CR><Esc>
 
@@ -353,8 +372,9 @@ endif
 inoremap <C-Space> <C-x><C-o>
 
 "" Tab and Shift + Tab Circular buffer navigation
-nnoremap <tab>   :bn<CR>
-nnoremap <S-tab> :bp<CR>
+"nnoremap <tab>   :bn<CR>
+"nnoremap <S-tab> :bp<CR>
+noremap <Tab> :CtrlPBuffer<CR>
 nnoremap <Leader>. <C-^><CR>
 
 "" Close buffer
@@ -364,7 +384,7 @@ nmap <leader>q :bp <BAR> bd! #<CR>
 map <Leader>ba :bufdo bd<cr>
 
 "" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
+nnoremap <silent> <leader><Space> :noh<cr>
 
 "" Set working directory
 nnoremap <leader>, :lcd %:p:h<CR>
@@ -413,8 +433,11 @@ nnoremap <leader>sc :SClose<CR>
 
 "" Golang
 autocmd FileType go nmap <leader>b  <Plug>(go-build)
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>r  <C-W>o<Plug>(go-run)
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
+au FileType go nmap <Leader>ds <Plug>(go-def)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 "" PHP
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
@@ -427,9 +450,6 @@ autocmd FileType vue imap <C-j> <C-y>,
 "" Editing files
 " Make it easy to edit the Vimrc file
 nmap <Leader>vi :e $MYVIMRC<cr>
-
-"" Open file explorer
-map <Leader>e :Explore<cr>
 
 "" neosnippet
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -445,6 +465,13 @@ map <Leader>i mzgg=G`z
 " open Tagbar
 map <F8> :TagbarOpenAutoClose<CR>
 map <F5> :e<CR>
+
+"" Open file explorer with Ranger
+map <leader>e :Ranger<CR>
+
+" Split screen
+"map <Leader>_ :sp<CR>
+"map <Leader>| :vsp<CR>
 
 
 
