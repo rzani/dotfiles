@@ -15,8 +15,8 @@ set $wallpaper /home/rzani/wallpaper.jpg
 set $bg_color "#2E3436"
 
 for_window [class="^.*"] border pixel 0
-gaps inner 10
-gaps outer 5
+gaps inner 5
+gaps outer 0
 set $term --no-startup-id $TERMINAL
 
 set $mod Mod4
@@ -195,17 +195,17 @@ bindsym $mod+r mode "resize"
         #position top
 #}
 
-exec polybar -r mybar
+exec_always /home/rzani/.config/polybar/launch.sh
 
 exec compton
 exec albert
 
-exec_alway feh --bg-scale $wallpaper
+exec_always feh --bg-scale $wallpaper
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -221,3 +221,5 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+shift+x exec /home/rzani/.config/i3/lock.sh
+
+bindsym $mod+Shift+s exec flameshot gui -p /home/rzani/Pictures
