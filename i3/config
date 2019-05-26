@@ -11,12 +11,12 @@
 
 #lxappearance
 
-set $wallpaper /home/rzani/wallpaper.jpg
+set $wallpaper $HOME/wallpaper.jpg
 set $bg_color "#2E3436"
 
 for_window [class="^.*"] border pixel 0
-gaps inner 5
-gaps outer 0
+gaps inner 4
+gaps outer 4
 set $term --no-startup-id $TERMINAL
 
 set $mod Mod4
@@ -195,9 +195,10 @@ bindsym $mod+r mode "resize"
         #position top
 #}
 
-exec_always /home/rzani/.config/polybar/launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec compton
+
 exec albert
 
 exec_always feh --bg-scale $wallpaper
@@ -220,6 +221,7 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-bindsym $mod+shift+x exec /home/rzani/.config/i3/lock.sh
+bindsym $mod+shift+x exec $HOME/.config/i3/lock.sh
 
-bindsym $mod+Shift+s exec flameshot gui -p /home/rzani/Pictures
+bindsym $mod+Shift+s exec scrot -s -d 2
+

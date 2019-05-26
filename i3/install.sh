@@ -3,7 +3,7 @@
 sudo dnf copr enable gregw/i3desktop
 sudo dnf copr enable mhartgring/polybar
 
-sudo dnf install i3-gaps i3blocks polybar feh lxappearance i3lock scrot
+sudo dnf install i3-gaps i3blocks polybar feh lxappearance i3lock scrot ranger w3m-img
 
 sudo mkdir ~/.config/polybar
 cp /usr/share/doc/polybar/config ~/.config/polybar
@@ -22,4 +22,5 @@ sudo dnf install NetworkManager-tui
 sudo dnf install playerctl
 sudo dnf install pavucontrol
 
+echo "set preview_images true" >> ~/.config/ranger/rc.conf
 
