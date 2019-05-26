@@ -3,7 +3,7 @@
 sudo dnf copr enable gregw/i3desktop
 sudo dnf copr enable mhartgring/polybar
 
-sudo dnf install i3-gaps i3blocks polybar feh lxappearance i3lock scrot ranger w3m-img
+sudo dnf install i3-gaps i3blocks polybar feh lxappearance i3lock scrot ranger w3m-img rofi thunar
 
 sudo mkdir ~/.config/polybar
 cp /usr/share/doc/polybar/config ~/.config/polybar

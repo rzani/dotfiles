@@ -6,7 +6,18 @@
 PDIR="$HOME/.config/polybar"
 LAUNCH="polybar-msg cmd restart"
  
-if  [[ $1 = "-amber" ]]; then
+if  [[ $1 = "-default" ]]; then
+# Replacing colors
+sed -i -e 's/bg = .*/bg = #222629/g' $PDIR/colors.ini
+sed -i -e 's/fg = .*/fg = #c1c1c1/g' $PDIR/colors.ini
+sed -i -e 's/ac = .*/ac = #364855/g' $PDIR/colors.ini
+sed -i -e 's/bi = .*/bi = #1e88e5/g' $PDIR/colors.ini
+sed -i -e 's/be = .*/be = #1e88e5/g' $PDIR/colors.ini
+sed -i -e 's/mf = .*/mf = #f5f5f5/g' $PDIR/colors.ini
+# Restarting polybar
+$LAUNCH &
+
+elif  [[ $1 = "-amber" ]]; then
 # Replacing colors
 sed -i -e 's/bg = .*/bg = #252525/g' $PDIR/colors.ini
 sed -i -e 's/fg = .*/fg = #f5f5f5/g' $PDIR/colors.ini
@@ -217,7 +228,7 @@ $LAUNCH &
 
 else
 echo "Available options:
--amber		-blue			-blue-grey		-brown
+-default  -amber		-blue			-blue-grey		-brown
 -cyan		-deep-orange		-deep-purple		-green
 -grey		-indigo			-light-blue		-light-green
 -lime		-orange			-pink			-purple

@@ -224,4 +224,3 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+shift+x exec $HOME/.config/i3/lock.sh
 
 bindsym $mod+Shift+s exec scrot -s -d 2
-
